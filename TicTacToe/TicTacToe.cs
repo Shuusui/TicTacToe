@@ -78,16 +78,18 @@ namespace TicTacToe
 
 
 
-        public Move[] GetMoves()
+        public List<Move> GetMoves()
         {
-            Move[] move = new Move[Width*Height]; 
+            List<Move> move = new List<Move>();
             for(int i = 0; i < Width; i++)
             {
                 for(int j = 0; j <Height; j++)
                 {
                    if(Board[i,j] == Fields.empty)
                     {
-                        move[i + j] = new Move(i, j);                        
+                        Move tempMove = new Move(i, j);
+                        move.Add(tempMove);
+
                     }
                 }
             }

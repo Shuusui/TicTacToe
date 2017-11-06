@@ -11,7 +11,7 @@ namespace TicTacToe
         Winner GetWinner();
         Fields GetActPlayer();
         void SetActPlayer(Fields player);
-        Move[] GetMoves();
+        List<Move> GetMoves();
         String OutputToString();
         IGame ApplyMove(Move move); 
     }
