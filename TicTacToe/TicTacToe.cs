@@ -21,21 +21,6 @@ namespace TicTacToe
         {
             Winner winner;
 
-            bool full  = false; 
-
-            for(int i = 0; i<  Width; i++)
-            {
-                for(int j = 0; j < Height; j++)
-                {
-                    if (Board[i, j] == Fields.empty)
-                        break;
-                    else if (i == Width && j == Height)
-                        full = true;
-
-                }
-            }
-            if (full)
-            {
                 if (Board[0, 0] == Fields.cross && Board[1, 1] == Fields.cross && Board[2, 2] == Fields.cross)
                     winner = Winner.cross;
                 else if (Board[0, 1] == Fields.cross && Board[1, 1] == Fields.cross && Board[2, 1] == Fields.cross)
@@ -45,6 +30,12 @@ namespace TicTacToe
                 else if (Board[0, 0] == Fields.cross && Board[1, 0] == Fields.cross && Board[2, 0] == Fields.cross)
                     winner = Winner.cross;
                 else if (Board[0, 2] == Fields.cross && Board[1, 2] == Fields.cross && Board[2, 2] == Fields.cross)
+                    winner = Winner.cross;
+                else if (Board[0, 0] == Fields.cross && Board[0, 1] == Fields.cross && Board[0, 2] == Fields.cross)
+                    winner = Winner.cross;
+                else if (Board[1, 0] == Fields.cross && Board[1, 1] == Fields.cross && Board[1, 2] == Fields.cross)
+                    winner = Winner.cross;
+                else if (Board[2, 0] == Fields.cross && Board[2, 1] == Fields.cross && Board[2, 2] == Fields.cross)
                     winner = Winner.cross;
                 else if (Board[0, 0] == Fields.circle && Board[1, 1] == Fields.circle && Board[2, 2] == Fields.circle)
                     winner = Winner.circle;
@@ -56,11 +47,14 @@ namespace TicTacToe
                     winner = Winner.circle;
                 else if (Board[0, 2] == Fields.circle && Board[1, 2] == Fields.circle && Board[2, 2] == Fields.circle)
                     winner = Winner.circle;
+                else if (Board[0, 0] == Fields.circle && Board[0, 1] == Fields.circle && Board[0, 2] == Fields.circle)
+                    winner = Winner.circle;
+                else if (Board[1, 0] == Fields.circle && Board[1, 1] == Fields.circle && Board[1, 2] == Fields.circle)
+                    winner = Winner.circle;
+                else if (Board[2, 0] == Fields.circle && Board[2, 1] == Fields.circle && Board[2, 2] == Fields.circle)
+                    winner = Winner.circle;
                 else
-                    winner = Winner.remis;
-            }
-            else
-                return winner = Winner.none;
+                    winner = Winner.none;
 
             return winner; 
         }
@@ -78,9 +72,9 @@ namespace TicTacToe
 
 
 
-        public List<Move> GetMoves()
+        public IList<Move> GetMoves()
         {
-            List<Move> move = new List<Move>();
+            IList<Move> move = new List<Move>();
             for(int i = 0; i < Width; i++)
             {
                 for(int j = 0; j <Height; j++)
@@ -121,6 +115,8 @@ namespace TicTacToe
                             sb.Append(Fields.empty.ToString()); 
                             break;
                     }
+                    if (j == 2)
+                        sb.AppendLine();
                 }
             }
             return sb.ToString();
@@ -139,10 +135,10 @@ namespace TicTacToe
             switch (this.Player)
             {
                 case Fields.cross:
-                    nextTurn.Board[move.x, move.y] = Fields.cross;
+                    nextTurn.Board[move.XProperty, move.YProperty] = Fields.cross;
                     break;
                 case Fields.circle:
-                    nextTurn.Board[move.x, move.y] = Fields.circle; 
+                    nextTurn.Board[move.XProperty, move.YProperty] = Fields.circle; 
                     break;
 
             }
