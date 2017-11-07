@@ -33,47 +33,31 @@ namespace TicTacToe
             this.Player = player; 
 
         }
-
+        
+        public IEnumerable<Move> GetPlayerFields(Fields? player)
+        {
+            Move move; 
+            for (int i = 0; i< Width; i++)
+                for (int j = 0; j <Height; j++)
+                {
+                    if (Board[i, j] == player)
+                        yield return move = new Move(i, j);
+                }
+        }
         public Winner? GetWinner()
         {
-            Winner? winner;
+            IEnumerable<IEnumerable<Move>> rows = GetRows();
+            IEnumerable<IEnumerable<Move>> columns = GetColumns();
+            var query = rows.Concat(columns).Concat(GetDiagonals());
 
-                if (Board[0, 0] == Fields.cross && Board[1, 1] == Fields.cross && Board[2, 2] == Fields.cross)
-                    winner = Winner.cross;
-                else if (Board[0, 1] == Fields.cross && Board[1, 1] == Fields.cross && Board[2, 1] == Fields.cross)
-                    winner = Winner.cross;
-                else if (Board[0, 2] == Fields.cross && Board[1, 1] == Fields.cross && Board[2, 0] == Fields.cross)
-                    winner = Winner.cross;
-                else if (Board[0, 0] == Fields.cross && Board[1, 0] == Fields.cross && Board[2, 0] == Fields.cross)
-                    winner = Winner.cross;
-                else if (Board[0, 2] == Fields.cross && Board[1, 2] == Fields.cross && Board[2, 2] == Fields.cross)
-                    winner = Winner.cross;
-                else if (Board[0, 0] == Fields.cross && Board[0, 1] == Fields.cross && Board[0, 2] == Fields.cross)
-                    winner = Winner.cross;
-                else if (Board[1, 0] == Fields.cross && Board[1, 1] == Fields.cross && Board[1, 2] == Fields.cross)
-                    winner = Winner.cross;
-                else if (Board[2, 0] == Fields.cross && Board[2, 1] == Fields.cross && Board[2, 2] == Fields.cross)
-                    winner = Winner.cross;
-                else if (Board[0, 0] == Fields.circle && Board[1, 1] == Fields.circle && Board[2, 2] == Fields.circle)
-                    winner = Winner.circle;
-                else if (Board[0, 1] == Fields.circle && Board[1, 1] == Fields.circle && Board[2, 1] == Fields.circle)
-                    winner = Winner.circle;
-                else if (Board[0, 2] == Fields.circle && Board[1, 1] == Fields.circle && Board[2, 0] == Fields.circle)
-                    winner = Winner.circle;
-                else if (Board[0, 0] == Fields.circle && Board[1, 0] == Fields.circle && Board[2, 0] == Fields.circle)
-                    winner = Winner.circle;
-                else if (Board[0, 2] == Fields.circle && Board[1, 2] == Fields.circle && Board[2, 2] == Fields.circle)
-                    winner = Winner.circle;
-                else if (Board[0, 0] == Fields.circle && Board[0, 1] == Fields.circle && Board[0, 2] == Fields.circle)
-                    winner = Winner.circle;
-                else if (Board[1, 0] == Fields.circle && Board[1, 1] == Fields.circle && Board[1, 2] == Fields.circle)
-                    winner = Winner.circle;
-                else if (Board[2, 0] == Fields.circle && Board[2, 1] == Fields.circle && Board[2, 2] == Fields.circle)
-                    winner = Winner.circle;
-                else
-                    winner = null;
-
-            return winner; 
+            if (query.Any(row => row.All(move => this[move] == Fields.cross)))
+                return Winner.cross;
+            else if (query.Any(row => row.All(move => this[move] == Fields.circle)))
+                return Winner.circle;
+            else if (query.Any(row => row.Any(move => this[move] == null)))
+                return null;
+            else
+                return Winner.remis;
         }
 
         public Fields? GetActPlayer()
@@ -85,27 +69,45 @@ namespace TicTacToe
         {
             Player = player; 
         }
-
-
-
-
-        public IList<Move> GetMoves()
+        public IEnumerable<Move> GetMoves()
         {
-            IList<Move> move = new List<Move>();
+            return GetPlayerFields(null); 
+        }
+        private IEnumerable<Move>GetLine(Move StartPosition, int x, int y)
+        {
+            int actX = StartPosition.XProperty, actY = StartPosition.YProperty;
+            
+            for (int i = 0; i < Width; i++)
+            {
+                if (actY < Height && actX < Width && actX >= 0 && actY >= 0)
+                    yield return new Move(StartPosition.XProperty + actX, StartPosition.YProperty + actY);
+                else break;
+                actX += x;
+                actY += y;
+            }
+        }
+        public IEnumerable<IEnumerable<Move>> GetRows()
+        {
+            for (int i = 0; i < Height; i++)
+            {
+                yield return GetLine(new Move(0, i), 1, 0);
+            }
+        }
+
+        public IEnumerable<IEnumerable<Move>> GetColumns()
+        {
             for(int i = 0; i < Width; i++)
             {
-                for(int j = 0; j <Height; j++)
-                {
-                   if(Board[i,j] == null)
-                    {
-                        Move tempMove = new Move(i, j);
-                        move.Add(tempMove);
-
-                    }
-                }
+                yield return GetLine(new Move(i, 0), 0, 1);
             }
-            return move; 
         }
+
+        public IEnumerable<IEnumerable<Move>> GetDiagonals()
+        {
+            yield return GetLine(new Move(0, 0), 1, 1);
+            yield return GetLine(new Move(0, 2), 1, -1);
+        }
+
 
         public String OutputToString()
         {

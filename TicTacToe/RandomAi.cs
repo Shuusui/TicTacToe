@@ -13,7 +13,7 @@ namespace TicTacToe
 
         public Move SelectMove(IGame game)
         {
-            IList<Move> move = game.GetMoves();
+            IList<Move> move = game.GetMoves().ToList();
             int x = rand.Next(move.Count);
 
             return move[x]; 
