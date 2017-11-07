@@ -16,7 +16,6 @@ namespace TicTacToe
        
         static void Main(string[] args)
         {
-
             IGame tictactoe = new TicTacToe(3,3,new Fields?[3,3], null);
             ConsoleUI ui = new ConsoleUI();
             while (tictactoe.GetActPlayer() == null)

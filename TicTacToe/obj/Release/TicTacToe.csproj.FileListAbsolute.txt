@@ -1,0 +1,6 @@
+D:\GithubRepos\TicTacToe\TicTacToe\bin\Release\TicTacToe.exe.config
+D:\GithubRepos\TicTacToe\TicTacToe\bin\Release\TicTacToe.exe
+D:\GithubRepos\TicTacToe\TicTacToe\bin\Release\TicTacToe.pdb
+D:\GithubRepos\TicTacToe\TicTacToe\obj\Release\TicTacToe.csproj.CoreCompileInputs.cache
+D:\GithubRepos\TicTacToe\TicTacToe\obj\Release\TicTacToe.exe
+D:\GithubRepos\TicTacToe\TicTacToe\obj\Release\TicTacToe.pdb
