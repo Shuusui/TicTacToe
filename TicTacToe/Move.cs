@@ -29,7 +29,7 @@ namespace TicTacToe
         }
         override public String ToString()
         {
-            return String.Format("{0}{1}",x, y);
+            return String.Format("{0}/{1} |",x, y);
         }
     }
 }

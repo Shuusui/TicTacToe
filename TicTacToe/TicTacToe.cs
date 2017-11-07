@@ -118,18 +118,23 @@ namespace TicTacToe
                     {
                         case Fields.cross:
                             sb.Append(i.ToString());
+                            sb.Append("/");
                             sb.Append(j.ToString());
-                            sb.Append(Fields.cross.ToString()); 
+                            sb.Append(Fields.cross.ToString());
+                            sb.Append(" | ");
                             break;
                         case Fields.circle:
                             sb.Append(i.ToString());
+                            sb.Append("/");
                             sb.Append(j.ToString());
                             sb.Append(Fields.circle.ToString());
+                            sb.Append(" | ");
                             break;
                         case null:
                             sb.Append(i.ToString());
+                            sb.Append("/");
                             sb.Append(j.ToString()); 
-                            sb.Append("none"); 
+                            sb.Append(" none | "); 
                             break;
                     }
                     if (j == 2)

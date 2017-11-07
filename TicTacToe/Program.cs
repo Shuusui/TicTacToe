@@ -20,7 +20,7 @@ namespace TicTacToe
             ConsoleUI ui = new ConsoleUI();
             while (tictactoe.GetActPlayer() == null)
             {
-                Console.WriteLine("Welchen Spieler möchtest du wählen? Druecke 1 für Kreuz oder 2 für Kreis");
+                Console.WriteLine("Welchen Spieler möchtest du wählen? Drücke 1 für Kreuz oder 2 für Kreis");
                 string s = Console.ReadLine();
                 int x = Int32.Parse(s);
                 if (x != 1 && x != 2)
