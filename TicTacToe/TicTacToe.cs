@@ -12,17 +12,17 @@ namespace TicTacToe
         private uint Width;
         private uint Height;
 
-        private Fields[,] Board;
+        private Fields?[,] Board;
 
-        private Fields Player;
+        private Fields? Player;
 
 
 
-        public TicTacToe(uint width, uint height, Fields[,] board, Fields player)
+        public TicTacToe(uint width, uint height, Fields?[,] board, Fields? player)
         {
             this.Width = width;
             this.Height = height;
-            this.Board = new Fields[Width , Height];
+            this.Board = new Fields?[Width , Height];
             for (int i = 0; i < Width; i++)
             {
                 for (int j = 0; j < Height; j++)
@@ -34,9 +34,9 @@ namespace TicTacToe
 
         }
 
-        public Winner GetWinner()
+        public Winner? GetWinner()
         {
-            Winner winner;
+            Winner? winner;
 
                 if (Board[0, 0] == Fields.cross && Board[1, 1] == Fields.cross && Board[2, 2] == Fields.cross)
                     winner = Winner.cross;
@@ -71,17 +71,17 @@ namespace TicTacToe
                 else if (Board[2, 0] == Fields.circle && Board[2, 1] == Fields.circle && Board[2, 2] == Fields.circle)
                     winner = Winner.circle;
                 else
-                    winner = Winner.none;
+                    winner = null;
 
             return winner; 
         }
 
-        public Fields GetActPlayer()
+        public Fields? GetActPlayer()
         {
             return Player; 
         }
 
-        public void SetActPlayer(Fields player)
+        public void SetActPlayer(Fields? player)
         {
             Player = player; 
         }
@@ -96,7 +96,7 @@ namespace TicTacToe
             {
                 for(int j = 0; j <Height; j++)
                 {
-                   if(Board[i,j] == Fields.empty)
+                   if(Board[i,j] == null)
                     {
                         Move tempMove = new Move(i, j);
                         move.Add(tempMove);
@@ -126,10 +126,10 @@ namespace TicTacToe
                             sb.Append(j.ToString());
                             sb.Append(Fields.circle.ToString());
                             break;
-                        case Fields.empty:
+                        case null:
                             sb.Append(i.ToString());
                             sb.Append(j.ToString()); 
-                            sb.Append(Fields.empty.ToString()); 
+                            sb.Append("none"); 
                             break;
                     }
                     if (j == 2)
@@ -141,7 +141,7 @@ namespace TicTacToe
 
         public IGame ApplyMove(Move move)
         {
-            Fields[,] nextBoard = new Fields[Width, Height]; 
+            Fields?[,] nextBoard = new Fields?[Width, Height]; 
             for (int i = 0; i < Width; i++)
             {
                 for(int j = 0; j <Width; j++)
@@ -164,7 +164,7 @@ namespace TicTacToe
             return nextTurn; 
         }
 
-        public Fields this[Move index]
+        public Fields? this[Move index]
         {
             get { return Board[index.XProperty, index.YProperty]; }
             set { Board[index.XProperty, index.YProperty] = value; }

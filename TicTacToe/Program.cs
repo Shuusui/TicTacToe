@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace TicTacToe
 {
 
-    enum Fields { empty, cross, circle };
-    enum Winner { none, cross, circle, remis };
+    enum Fields { cross, circle};
+    enum Winner { cross, circle, remis };
 
 
     class Program
@@ -16,9 +16,10 @@ namespace TicTacToe
        
         static void Main(string[] args)
         {
-            IGame tictactoe = new TicTacToe(3,3,new Fields[3,3], Fields.empty);
-            ConsoleUI ui = new ConsoleUI(); 
-            while (tictactoe.GetActPlayer() == Fields.empty)
+
+            IGame tictactoe = new TicTacToe(3,3,new Fields?[3,3], null);
+            ConsoleUI ui = new ConsoleUI();
+            while (tictactoe.GetActPlayer() == null)
             {
                 Console.WriteLine("Welchen Spieler möchtest du wählen? Druecke 1 für Kreuz oder 2 für Kreis");
                 string s = Console.ReadLine();

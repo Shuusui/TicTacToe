@@ -8,12 +8,12 @@ namespace TicTacToe
 {
     class ConsoleUI
     {
-        public Fields Player;
+        public Fields? Player;
         public IAI randomAI = new RandomAI();
 
         public void Play(IGame game)
         {
-            Winner winner; 
+            Winner? winner; 
             Player = game.GetActPlayer();
             while(true)
             {
@@ -21,14 +21,14 @@ namespace TicTacToe
                 {
                     game = PlayTurn(game);
                     winner = game.GetWinner();
-                    if (winner != Winner.none)
+                    if (winner.HasValue)
                         break;
                 }
                 else
                     break;
             }
             winner = game.GetWinner();
-            if (winner == Winner.none)
+            if (!winner.HasValue)
                 winner = Winner.remis;
             Console.WriteLine(winner.ToString());
         }

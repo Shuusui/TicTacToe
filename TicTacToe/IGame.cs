@@ -8,11 +8,11 @@ namespace TicTacToe
 {
     interface IGame
     {
-        Winner GetWinner();
-        Fields GetActPlayer();
-        void SetActPlayer(Fields player);
+        Winner? GetWinner();
+        Fields? GetActPlayer();
+        void SetActPlayer(Fields? player);
         IList<Move> GetMoves();
         String OutputToString();
-        IGame ApplyMove(Move move); 
+        IGame ApplyMove(Move move);
     }
 }
