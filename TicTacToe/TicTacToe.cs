@@ -9,13 +9,30 @@ namespace TicTacToe
 {
     class TicTacToe :IGame
     {
-        public const uint Width = 3;
-        public const uint Height = 3;
+        private uint Width;
+        private uint Height;
 
-        public Fields[,] Board = new Fields[Width, Height];
+        private Fields[,] Board;
 
-        public Fields Player = 0;
+        private Fields Player;
 
+
+
+        public TicTacToe(uint width, uint height, Fields[,] board, Fields player)
+        {
+            this.Width = width;
+            this.Height = height;
+            this.Board = new Fields[Width , Height];
+            for (int i = 0; i < Width; i++)
+            {
+                for (int j = 0; j < Height; j++)
+                {
+                    Board[i, j] = board[i, j];
+                }
+            }
+            this.Player = player; 
+
+        }
 
         public Winner GetWinner()
         {
@@ -124,29 +141,25 @@ namespace TicTacToe
 
         public IGame ApplyMove(Move move)
         {
-            TicTacToe nextTurn = new TicTacToe();
+            Fields[,] nextBoard = new Fields[Width, Height]; 
             for (int i = 0; i < Width; i++)
             {
                 for(int j = 0; j <Width; j++)
                 {
-                    nextTurn.Board[i, j] = this.Board[i, j];
+                    nextBoard[i, j] = this.Board[i, j];
                 }
             }
             switch (this.Player)
             {
                 case Fields.cross:
-                    nextTurn[move] = Fields.cross;
+                    nextBoard[move.XProperty, move.YProperty] = Fields.cross;
                     break;
                 case Fields.circle:
-                    nextTurn[move] = Fields.circle; 
+                    nextBoard[move.XProperty, move.YProperty] = Fields.circle; 
                     break;
 
             }
-            if (Player == Fields.cross)
-                nextTurn.SetActPlayer(Fields.circle);
-            else if (Player == Fields.circle)
-                nextTurn.SetActPlayer(Fields.cross);
-
+            TicTacToe nextTurn = new TicTacToe(Width, Height, nextBoard, Player == Fields.cross ? Fields.circle : Fields.cross);
 
             return nextTurn; 
         }

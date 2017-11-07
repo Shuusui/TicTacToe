@@ -18,17 +18,14 @@ namespace TicTacToe
         public Move MoveProperty
         {
             get { return this; }
-            set { this = value; }
         }
         public int XProperty
         {
             get { return x; }
-            set { x = value; }
         }
         public int YProperty
         {
             get { return y; }
-            set { y = value; }
         }
         override public String ToString()
         {
