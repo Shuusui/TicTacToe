@@ -135,10 +135,10 @@ namespace TicTacToe
             switch (this.Player)
             {
                 case Fields.cross:
-                    nextTurn.Board[move.XProperty, move.YProperty] = Fields.cross;
+                    nextTurn[move] = Fields.cross;
                     break;
                 case Fields.circle:
-                    nextTurn.Board[move.XProperty, move.YProperty] = Fields.circle; 
+                    nextTurn[move] = Fields.circle; 
                     break;
 
             }
@@ -149,6 +149,12 @@ namespace TicTacToe
 
 
             return nextTurn; 
+        }
+
+        public Fields this[Move index]
+        {
+            get { return Board[index.XProperty, index.YProperty]; }
+            set { Board[index.XProperty, index.YProperty] = value; }
         }
     }
 }

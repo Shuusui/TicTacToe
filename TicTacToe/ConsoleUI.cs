@@ -37,7 +37,7 @@ namespace TicTacToe
         {
             if (game.GetActPlayer() == Player)
             {
-                String moves = game.GetMoves().ToString();
+                String moves = String.Join(",", game.GetMoves());
                 Console.WriteLine(moves);
                 String s = game.OutputToString();
                 Console.WriteLine(s);
